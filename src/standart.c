@@ -30,10 +30,6 @@ char	*ft_getstr(char *path)
 		rez = ft_realloc(rez, cursize + size);
 		buf = malloc(size);
 		temp = read(fd, buf, size);
-		ft_putstr(buf);
-		ft_putstr("\n");
-		ft_putstr(rez);
-		ft_putstr("\n");
 		ft_strncat(rez, buf, size);
 		free(buf);
 		if (temp != size)

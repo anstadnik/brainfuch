@@ -9,7 +9,6 @@ int	main(int argc, char **argv)
 		for (int i = 0; i < 2048; i++)
 			arr[i] = 0;
 		char *ch = ft_getstr(argc == 1 ? NULL : argv[1]);
-		ft_putstr(ch);
 		brainfuck(arr, ch);
 		free(arr);
 	}
