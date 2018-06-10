@@ -1,4 +1,4 @@
-#include "head.h"
+#include "brainfuck.h"
 
 void	operation(char	**ptr, char c)
 {
@@ -25,22 +25,27 @@ void	operation(char	**ptr, char c)
 	}
 }
 
-void	brainfuck(char *ptr, char *str)
+void	brainfuck(char *ptr, int fd)
 {
-	int	i = 0;
-	while (str[i])
+	char	*buf;
+
+	while (get_next_line(fd, &buf))
 	{
-		if ((!(*ptr) && str[i] == '[') || (*ptr && str[i] == ']'))
+		int	i = 0;
+		while (buf[i])
 		{
-			int depth = str[i] == '[' ? 1 : -1;
-			while (depth)
-			 {
-				i += depth > 0 ? 1 : -1;
-				depth += str[i] == '[' ? 1 : str[i] == ']' ? -1 : 0;
-			 }
+			if ((!(*ptr) && buf[i] == '[') || (*ptr && buf[i] == ']'))
+			{
+				int depth = buf[i] == '[' ? 1 : -1;
+				while (depth)
+				{
+					i += depth > 0 ? 1 : -1;
+					depth += buf[i] == '[' ? 1 : buf[i] == ']' ? -1 : 0;
+				}
+			}
+			else 
+				operation(&ptr, buf[i]);
+			i++;
 		}
-		else 
-			operation(&ptr, str[i]);
-		i++;
 	}
 }
