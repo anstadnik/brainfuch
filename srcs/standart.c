@@ -28,8 +28,8 @@ char	*ft_getstr(char *path)
 	while (42)
 	{
 		rez = ft_realloc(rez, cursize + size);
-		buf = malloc(size);
-		temp = read(fd, buf, size);
+		buf = malloc((size_t)size);
+		temp = (int)read(fd, buf, (size_t)size);
 		ft_strncat(rez, buf, size);
 		free(buf);
 		if (temp != size)
@@ -42,10 +42,13 @@ char	*ft_getstr(char *path)
 
 void	*ft_realloc(void *data, int size)
 {
-	char	*rez = malloc(size);
+	char	*rez = malloc((size_t)size);
 	int	offset = 0;
 	while (--size)
-		*(rez + offset) = *(char *)(data + offset++);
+	{
+		*(rez + offset) = *(char *)(data + offset);
+		offset++;
+	}
 	free(data);
 	return rez;
 }
@@ -59,6 +62,7 @@ char	*ft_strncat(char *str1, char *str2, int size)
 	while (*str2 && size--)
 		*(str1++) = *(str2++);
 	*str1 = '\0';
+	return NULL;
 }
 
 int	ft_atoi(char *str)

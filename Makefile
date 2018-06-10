@@ -1,56 +1,58 @@
-.PHONY: clean, fclean
-CC=/usr/bin/gcc
-CFLAGS=-Wall -Wextra -Werror
-LPATH=./lib/
-OPATH=./obj/
-FPATH=./src/
-FILES=main.c standart.c brainfuck.c
-OBJECTS=$(FILES:.c=.o)
-EXECUTABLE=brainfuck
+.PHONY: clean fclean re r g
+CFLAGS = -Wall -Wextra -Werror -Wconversion#remove last one
+ODIR = objs/
+SDIR = srcs/
+IDIR = includes/
+LDIR = ../libft/
+NAME = brainfuck
+LIB = $(LDIR)libft.a
+FILES = brainfuck.c main.c standart.c
+OBJS = $(FILES:.c=.o)
 
-define skull
-DONE
+ifeq ($(shell uname), Linux)
+	ESCAPE := \033
+	CC = clang
+else
+	ESCAPE := \x1b
+	CC = gcc
+endif
 
-	              :::!~!!!!!:.
-	          .xUHWH!! !!?M88WHX:.
-	        .X*#M@$$!!  !X!M$$$$$$$$$$$$WWx:.
-	       :!!!!!!?H! :!$$!$$$$$$$$$$$$$$$$$$$$8X:
-	      !!~  ~:~!! :~!$$!#$$$$$$$$$$$$$$$$$$$$8X:
-	     :!~::!H!<   ~.U$$X!?R$$$$$$$$$$$$$$$$MM!
-	     ~!~!!!!~~ .:XW$$$$$$U!!?$$$$$$$$$$$$RMM!
-	       !:~~~ .:!M"T#$$$$$$$$WX??#MRRMMM!
-	       ~?WuxiW*`   `"#$$$$$$$$8!!!!??!!!
-	     :X- M$$$$$$$$       `"T#$$T~!8$$WUXU~
-	    :%`  ~#$$$$$$m:        ~!~ ?$$$$$$$$$$$$
-	  :!`.-   ~T$$$$$$$$8xx.  .xWW- ~""##*"
-.....   -~~:<` !    ~?T#$$$$@@W@*?$$$$      /`
-W$$@@M!!! .!~~ !!     .:XUW$$W!~ `"~:    :
-"~~`.:x%`!!  !H:   !WM$$$$$$$$Ti.: .!WUn+!`
-:::~:!!`:X~ .: ?H.!u "$$$$$$B$$$$$$!W:U!T$$$$M~
-.~~   :X@!.-~   ?@WTWo("*$$$$$$W$$TH$$! `
-Wi.~!X$$?!-~    : ?$$$$$$B$$Wu("**$$RM!
-$$R@i.~~ !     :   ~$$$$$$$$$$B$$$$en:``
-?MXT@Wx.~    :     ~"##*$$$$$$$$M~'
-endef
-export skull
-
-all: $(EXECUTABLE)
-
-$(EXECUTABLE): $(addprefix $(OPATH), $(OBJECTS))
-	@$(CC) -I $(LPATH) $(addprefix $(OPATH), $(OBJECTS)) -o $@
-	@echo "Made the executable"
-	@echo "$$skull"
-
-$(addprefix $(OPATH), %.o): $(addprefix $(FPATH), %.c)
-	@$(CC) -I $(LPATH) -c -o $@ $<
-	@echo "Made the objective file for $<"
+all: $(NAME)
 	
-re: fclean all
+$(NAME): $(addprefix $(ODIR), $(OBJS)) $(LIB)
+	@echo "$(ESCAPE)[34m\nCompiling $@$(ESCAPE)[0m"
+	@$(CC) $(CFLAGS) -I $(IDIR) -I $(LDIR)includes -o $@ $^
 
-clean:
-	@rm -f $(OPATH)*.o
-	@echo "Deleted the objective files"
+g:
+	@echo "$(ESCAPE)[34m\nCompiling debug $(NAME)$(ESCAPE)[0m"
+	@$(MAKE) --no-print-directory -C $(LDIR) g
+	@$(CC) $(CFLAGS) -g -I $(IDIR) -I $(LDIR)includes -o $(NAME) $(addprefix $(SDIR), $(FILES)) $(LDIR)dlibft.a
 
-fclean: clean
-	@rm -f $(EXECUTABLE)
-	@echo "Deleted the executable"
+$(LIB):
+	@echo "$(ESCAPE)[35m\nCompiling $(notdir $@)$(ESCAPE)[0m"
+	@$(MAKE) --no-print-directory -C $(dir $@) $(notdir $@)
+	@echo "$(ESCAPE)[35m\n$(notdir $@) compiled$(ESCAPE)[0m"
+
+$(addprefix $(ODIR), %.o): $(addprefix $(SDIR), %.c)
+	@$(CC) $(CFLAGS) -I $(IDIR) -I $(LDIR)includes -c -o $@ $<
+	@printf "."
+
+r: $(NAME)
+	./$(NAME)
+	#parameters
+
+clean: clean_objs
+	@$(MAKE) --no-print-directory -C $(LDIR) clean
+
+clean_objs:
+	@echo "$(ESCAPE)[31mRemoving the object files of $(NAME)$(ESCAPE)[0m"
+	@rm -f $(addprefix $(ODIR), $(OBJS))
+
+fclean: clean_objs
+	@$(MAKE) --no-print-directory -C $(LDIR) fclean
+	@echo "$(ESCAPE)[31mRemoving the $(NAME)$(ESCAPE)[0m"
+	@rm -rf $(NAME)
+
+re:
+	@$(MAKE) --no-print-directory fclean
+	@$(MAKE) --no-print-directory
