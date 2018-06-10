@@ -12,7 +12,8 @@ typedef enum
 	YELLOW,
 	BLUE,
 	MAGENTA,
-	CYAN
+	CYAN,
+	WHITE
 }t_color;
 
 typedef	enum
@@ -26,12 +27,12 @@ typedef	struct
 {
 	t_color	color;
 	bool	d;
-	int		length;
+	size_t	length;
 	int		fd;
 }t_args;
 
 void	colored(char *str, t_color color);
 t_args	get_args(int ac, char **av);
-void	brainfuck(char *line, int fd);
+void	brainfuck(char *ptr, t_args args);
 
 #endif

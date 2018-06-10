@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 17:02:23 by astadnik          #+#    #+#             */
-/*   Updated: 2018/06/10 22:49:52 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/06/10 23:56:57 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,18 @@ void	colored(char *str, t_color color)
 		case (CYAN):
 			ft_printf("{cyan}");
 			break;
+		case (WHITE):
+			ft_printf("{white}");
+			break;
 		default: ;
 	}
 	ft_printf("%s", str);
 	ft_printf("{eoc}");
 }
 
-void	usage(t_color color)
+static void	usage(t_color color)
 {
-	colored("Usage: ./brainfuck [-h] [-c color] [-d] [-l LENGTH] [-f FILE]\n", color);
+	colored("Usage: ./brainfuck [-h] [-c color] [-d] [-l LENGTH] FILE\n", color);
 	colored("Executes brainfuck code\n", color);
 	colored("\n", color);
 	colored("Options:\n", color);
@@ -50,9 +53,8 @@ void	usage(t_color color)
 	colored("  -c - specify color\n", color);
 	colored("  -d - debug mode\n", color);
 	colored("  -l - specify length of string\n", color);
-	colored("  -f - specify file\n", color);
+	colored("  FILE - specify file\n", color);
 	colored("\n", color);
-	colored("If no file was specified, program reads from stdIO\n", color);
 }
 
 static int		get_color(char *str, t_color *color)
@@ -93,7 +95,7 @@ static t_parse_return 	parse_args(int ac, char **av, t_args *as)
 		else if (ft_strequ(*av, "-l"))
 		{
 			if (++av && !ft_isinteger(*av))
-				as->length = ft_atoi(*av++);
+				as->length = (size_t)ft_atoi(*av++);
 			else
 				return (ERROR);
 			ac--;
