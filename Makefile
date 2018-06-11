@@ -6,7 +6,7 @@ IDIR = includes/
 LDIR = ../libft/
 NAME = brainfuck
 LIB = $(LDIR)libft.a
-FILES = brainfuck.c get_args.c main.c
+FILES = brainfuck.c debug.c get_args.c main.c
 OBJS = $(FILES:.c=.o)
 
 ifeq ($(shell uname), Linux)
