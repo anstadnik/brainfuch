@@ -6,7 +6,7 @@ IDIR = includes/
 LDIR = ../libft/
 NAME = brainfuck
 LIB = $(LDIR)libft.a
-FILES = brainfuck.c get_args.c main.c
+FILES = brainfuck.c debug.c get_args.c main.c
 OBJS = $(FILES:.c=.o)
 
 ifeq ($(shell uname), Linux)
@@ -24,7 +24,7 @@ $(NAME): $(addprefix $(ODIR), $(OBJS)) $(LIB)
 	@$(CC) $(CFLAGS) -I $(IDIR) -I $(LDIR)includes -o $@ $^
 
 g:
-	@echo "$(ESCAPE)[34m\nCompiling debug $(NAME)$(ESCAPE)[0m"
+	@echo "$(ESCAPE)[34mCompiling debug $(NAME)$(ESCAPE)[0m"
 	@$(MAKE) --no-print-directory -C $(LDIR) g
 	@$(CC) $(CFLAGS) -g -I $(IDIR) -I $(LDIR)includes -o $(NAME) $(addprefix $(SDIR), $(FILES)) $(LDIR)dlibft.a
 
