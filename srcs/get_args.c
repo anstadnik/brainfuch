@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 17:02:23 by astadnik          #+#    #+#             */
-/*   Updated: 2018/06/10 23:56:57 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:37:26 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ t_args	get_args(int ac, char **av)
 		case (USAGE):
 			usage(GREEN);
 			exit(0);
+	}
+	if (!args.fd)
+	{
+		usage(RED);
+		exit(1);
 	}
 	return (args);
 }
