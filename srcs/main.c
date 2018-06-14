@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 17:02:27 by astadnik          #+#    #+#             */
-/*   Updated: 2018/06/11 23:27:05 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:48:00 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		main(int ac, char **av)
 	args = get_args(--ac, ++av);
 	/* show_args(args); */
 	map = ft_memalloc((size_t)args.length + 1);
-	if (args.fd)
 	while (get_next_line(args.fd, &buf) == 1)
 	{
 		tmp = ft_strjoin(command, buf);

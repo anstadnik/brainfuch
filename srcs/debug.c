@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/11 09:29:34 by astadnik          #+#    #+#             */
-/*   Updated: 2018/06/11 21:36:25 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/06/13 11:42:16 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	print_map(char *map, size_t p_i, t_args args)
 		beg = p_i - 10;
 		end = p_i + 10;
 	}
-	ft_printf("%zd %zd \n", beg, end);
 	buf[3] = ' ';
 	buf[4] = '\0';
 	for (size_t i = beg; i < end; i++)
