@@ -6,7 +6,7 @@
 /*   By: astadnik <astadnik@student.unit.ua>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/10 17:02:23 by astadnik          #+#    #+#             */
-/*   Updated: 2018/06/13 11:37:26 by astadnik         ###   ########.fr       */
+/*   Updated: 2018/06/18 11:00:26 by astadnik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	colored(char *str, t_color color)
 
 static void	usage(t_color color)
 {
-	colored("Usage: ./brainfuck [-h] [-c color] [-d] [-l LENGTH] FILE\n", color);
+	colored("Usage: ./brainfuck [-h] [-c color] [-d] [-l LENGTH] -f FILE\n", color);
 	colored("Executes brainfuck code\n", color);
 	colored("\n", color);
 	colored("Options:\n", color);
