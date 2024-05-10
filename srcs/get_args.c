@@ -45,7 +45,7 @@ void	colored(char *str, t_color color)
 
 static void	usage(t_color color)
 {
-	colored("Usage: ./brainfuck [-h] [-c color] [-d] [-l LENGTH] FILE\n", color);
+	colored("Usage: ./brainfuck [-h] [-c color] [-d] [-l LENGTH] -f FILE\n", color);
 	colored("Executes brainfuck code\n", color);
 	colored("\n", color);
 	colored("Options:\n", color);
@@ -53,7 +53,7 @@ static void	usage(t_color color)
 	colored("  -c - specify color\n", color);
 	colored("  -d - debug mode\n", color);
 	colored("  -l - specify length of string\n", color);
-	colored("  FILE - specify file\n", color);
+	colored("  -f FILE - specify file\n", color);
 	colored("\n", color);
 }
 

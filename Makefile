@@ -1,5 +1,5 @@
 .PHONY: clean fclean re r g
-CFLAGS = -Wall -Wextra -Werror -Wconversion#remove last one
+CFLAGS = -O3 -Wall -Wextra -Werror -Wconversion#remove last one
 ODIR = objs/
 SDIR = srcs/
 IDIR = includes/
